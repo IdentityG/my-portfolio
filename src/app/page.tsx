@@ -128,13 +128,13 @@ export default function Home() {
               />
             </section>
 
-            <SectionDivider variant="dots" />
+            <SectionDivider variant="wave" />
 
             <section id="about">
               <AboutSection isAgencyMode={isAgencyMode} />
             </section>
 
-            <SectionDivider variant="gradient" />
+            <SectionDivider variant="wave" />
 
             <section id="services">
               <ServicesSection isAgencyMode={isAgencyMode} />
@@ -146,7 +146,7 @@ export default function Home() {
               <ProjectsSection isAgencyMode={isAgencyMode} />
             </section>
 
-            <SectionDivider variant="pulse" />
+            <SectionDivider variant="zigzag" />
 
             <section id="testimonials">
               <TestimonialsSection isAgencyMode={isAgencyMode} />
