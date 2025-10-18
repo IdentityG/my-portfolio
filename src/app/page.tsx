@@ -16,7 +16,14 @@ const AboutSection = dynamic(() => import("../components/home/AboutSection"), {
   loading: () => <SectionLoader />,
 });
 
+const TestimonialsSection = dynamic(() => import("@/components/home/TestimonialsSection"), {
+  loading: () => <SectionLoader />,
+});
 const ServicesSection = dynamic(() => import("@/components/home/ServicesSection"), {
+  loading: () => <SectionLoader />,
+});
+
+const ContactSection = dynamic(() => import("@/components/home/ContactSection"), {
   loading: () => <SectionLoader />,
 });
 
@@ -133,6 +140,20 @@ export default function Home() {
        <section id="projects">
           <ProjectsSection isAgencyMode={isAgencyMode} />
        </section>
+
+       <SectionDivider variant="line" />
+
+       <section id="testimonials">
+       <TestimonialsSection isAgencyMode={isAgencyMode} />
+       </section>
+
+       <SectionDivider variant="dots" />
+
+       <section id="contact">
+       <ContactSection isAgencyMode={isAgencyMode} />
+       </section>
+
+
       {/* Add more sections here as needed */}
       {/* <SkillsSection isAgencyMode={isAgencyMode} /> */}
       {/* <SectionDivider variant="wave" /> */}

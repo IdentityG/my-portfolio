@@ -19,9 +19,9 @@ import {
 
 const navItems = [
   { name: "About", href: "#about", icon: User },
+  { name: "Services", href: "#services", icon: Palette },
   { name: "Projects", href: "#projects", icon: Briefcase },
-  { name: "Skills", href: "#skills", icon: Code2 },
-  { name: "Design", href: "#design", icon: Palette },
+  { name: "Testimonials", href: "#testimonials", icon: Code2 },
   { name: "Contact", href: "#contact", icon: Mail },
 ];
 
