@@ -119,7 +119,7 @@ export default function Home() {
         >
 
           <Navbar isAgencyMode={isAgencyMode} onModeChange={setIsAgencyMode} />
-          
+
           <main>
             <section id="home">
               <HeroSection
@@ -134,7 +134,7 @@ export default function Home() {
               <AboutSection isAgencyMode={isAgencyMode} />
             </section>
 
-            <SectionDivider variant="line" />
+            <SectionDivider variant="gradient" />
 
             <section id="services">
               <ServicesSection isAgencyMode={isAgencyMode} />
@@ -146,23 +146,17 @@ export default function Home() {
               <ProjectsSection isAgencyMode={isAgencyMode} />
             </section>
 
-            <SectionDivider variant="line" />
+            <SectionDivider variant="pulse" />
 
             <section id="testimonials">
               <TestimonialsSection isAgencyMode={isAgencyMode} />
             </section>
 
-            <SectionDivider variant="dots" />
+            <SectionDivider variant="zigzag" />
 
             <section id="contact">
               <ContactSection isAgencyMode={isAgencyMode} />
             </section>
-
-
-            {/* Add more sections here as needed */}
-            {/* <SkillsSection isAgencyMode={isAgencyMode} /> */}
-            {/* <SectionDivider variant="wave" /> */}
-            {/* <ProjectsSection isAgencyMode={isAgencyMode} /> */}
 
           </main>
 
