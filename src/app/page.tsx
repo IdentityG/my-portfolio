@@ -5,6 +5,8 @@ import dynamic from "next/dynamic";
 import Lenis from "lenis";
 import SectionDivider from "@/components/home/about/SectionDivider";
 import HeroSection from "@/components/home/HeroSection";
+import Footer from "@/components/common/Footer";
+import Navbar from "@/components/common/Navbar";
 
 
 const LoadingScreen = dynamic(() => import("../components/common/LoadingScreen"), {
@@ -115,52 +117,57 @@ export default function Home() {
           transition={{ duration: 0.5 }}
           className="relative"
         >
-     <div className="relative">
-     <section id="home">
-      <HeroSection 
-        isAgencyMode={isAgencyMode}
-        setIsAgencyMode={setIsAgencyMode}
-      />   
-      </section>
 
-      <SectionDivider variant="dots" />
-      
-      <section id="about">
-      <AboutSection isAgencyMode={isAgencyMode} />
-      </section>
+          <Navbar isAgencyMode={isAgencyMode} onModeChange={setIsAgencyMode} />
+          
+          <main>
+            <section id="home">
+              <HeroSection
+                isAgencyMode={isAgencyMode}
+                setIsAgencyMode={setIsAgencyMode}
+              />
+            </section>
 
-      <SectionDivider variant="line" />
+            <SectionDivider variant="dots" />
 
-       <section id="services">
-       <ServicesSection isAgencyMode={isAgencyMode} />
-       </section>
+            <section id="about">
+              <AboutSection isAgencyMode={isAgencyMode} />
+            </section>
 
-       <SectionDivider variant="wave" />
+            <SectionDivider variant="line" />
 
-       <section id="projects">
-          <ProjectsSection isAgencyMode={isAgencyMode} />
-       </section>
+            <section id="services">
+              <ServicesSection isAgencyMode={isAgencyMode} />
+            </section>
 
-       <SectionDivider variant="line" />
+            <SectionDivider variant="wave" />
 
-       <section id="testimonials">
-       <TestimonialsSection isAgencyMode={isAgencyMode} />
-       </section>
+            <section id="projects">
+              <ProjectsSection isAgencyMode={isAgencyMode} />
+            </section>
 
-       <SectionDivider variant="dots" />
+            <SectionDivider variant="line" />
 
-       <section id="contact">
-       <ContactSection isAgencyMode={isAgencyMode} />
-       </section>
+            <section id="testimonials">
+              <TestimonialsSection isAgencyMode={isAgencyMode} />
+            </section>
+
+            <SectionDivider variant="dots" />
+
+            <section id="contact">
+              <ContactSection isAgencyMode={isAgencyMode} />
+            </section>
 
 
-      {/* Add more sections here as needed */}
-      {/* <SkillsSection isAgencyMode={isAgencyMode} /> */}
-      {/* <SectionDivider variant="wave" /> */}
-      {/* <ProjectsSection isAgencyMode={isAgencyMode} /> */}
+            {/* Add more sections here as needed */}
+            {/* <SkillsSection isAgencyMode={isAgencyMode} /> */}
+            {/* <SectionDivider variant="wave" /> */}
+            {/* <ProjectsSection isAgencyMode={isAgencyMode} /> */}
 
-    </div>
-     </motion.main>
+          </main>
+
+          <Footer isAgencyMode={isAgencyMode} />
+        </motion.main>
       )}
     </>
   );

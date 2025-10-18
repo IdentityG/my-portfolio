@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Syne, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/common/Navbar";
 
 // Primary Font
 const spaceGrotesk = Space_Grotesk({
@@ -78,7 +77,6 @@ export default function RootLayout({
         
         {/* Main Content */}
         <main className="relative z-10">
-          <Navbar />
           {children}
         </main>
       </body>

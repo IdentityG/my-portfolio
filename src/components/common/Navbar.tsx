@@ -14,7 +14,10 @@ import {
   Menu,
   X,
   ArrowUpRight,
-  Download
+  Download,
+  ChevronDown,
+  Building2,
+  UserCircle
 } from "lucide-react";
 
 const navItems = [
@@ -25,15 +28,22 @@ const navItems = [
   { name: "Contact", href: "#contact", icon: Mail },
 ];
 
-export default function Navbar() {
+interface NavbarProps {
+  isAgencyMode?: boolean;
+  onModeChange?: (mode: boolean) => void;
+}
+
+export default function Navbar({ isAgencyMode = false, onModeChange }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isModeDropdownOpen, setIsModeDropdownOpen] = useState(false);
   
   const navRef = useRef<HTMLElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
   const magnetRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -65,6 +75,18 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Handle click outside for dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsModeDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   // Magnetic effect for logo
@@ -127,6 +149,13 @@ export default function Navbar() {
       );
     }
   }, []);
+
+  const handleModeChange = (mode: boolean) => {
+    if (onModeChange) {
+      onModeChange(mode);
+    }
+    setIsModeDropdownOpen(false);
+  };
 
   return (
     <>
@@ -274,6 +303,95 @@ export default function Navbar() {
                   );
                 })}
                 
+                {/* Mode Dropdown */}
+                <div ref={dropdownRef} className="relative ml-2">
+                  <motion.button
+                    onClick={() => setIsModeDropdownOpen(!isModeDropdownOpen)}
+                    className="nav-item relative px-4 py-2 rounded-xl glass-subtle border border-steel/20 text-cream hover:border-coral/50 transition-all"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <div className="flex items-center gap-2">
+                      {isAgencyMode ? (
+                        <>
+                          <Building2 className="w-4 h-4" />
+                          <span className="font-medium text-sm">Agency</span>
+                        </>
+                      ) : (
+                        <>
+                          <UserCircle className="w-4 h-4" />
+                          <span className="font-medium text-sm">Personal</span>
+                        </>
+                      )}
+                      <motion.div
+                        animate={{ rotate: isModeDropdownOpen ? 180 : 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <ChevronDown className="w-4 h-4" />
+                      </motion.div>
+                    </div>
+                  </motion.button>
+
+                  {/* Dropdown Menu */}
+                  <AnimatePresence>
+                    {isModeDropdownOpen && (
+                      <motion.div
+                        className="absolute top-full mt-2 right-0 w-48 glass-strong rounded-xl overflow-hidden"
+                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <motion.button
+                          onClick={() => handleModeChange(false)}
+                          className={`w-full px-4 py-3 flex items-center gap-3 transition-all ${
+                            !isAgencyMode 
+                              ? "bg-gradient-to-r from-coral/20 to-purple/20 text-coral" 
+                              : "hover:bg-midnight/50 text-cream"
+                          }`}
+                          whileHover={{ x: 5 }}
+                        >
+                          <UserCircle className="w-5 h-5" />
+                          <div className="text-left">
+                            <span className="block font-medium text-sm">Personal</span>
+                            <span className="text-xs text-steel">Portfolio & Projects</span>
+                          </div>
+                          {!isAgencyMode && (
+                            <motion.div
+                              className="ml-auto w-2 h-2 bg-coral rounded-full"
+                              animate={{ scale: [1, 1.2, 1] }}
+                              transition={{ duration: 1, repeat: Infinity }}
+                            />
+                          )}
+                        </motion.button>
+
+                        <motion.button
+                          onClick={() => handleModeChange(true)}
+                          className={`w-full px-4 py-3 flex items-center gap-3 transition-all ${
+                            isAgencyMode 
+                              ? "bg-gradient-to-r from-coral/20 to-purple/20 text-coral" 
+                              : "hover:bg-midnight/50 text-cream"
+                          }`}
+                          whileHover={{ x: 5 }}
+                        >
+                          <Building2 className="w-5 h-5" />
+                          <div className="text-left">
+                            <span className="block font-medium text-sm">Agency</span>
+                            <span className="text-xs text-steel">Studio Services</span>
+                          </div>
+                          {isAgencyMode && (
+                            <motion.div
+                              className="ml-auto w-2 h-2 bg-coral rounded-full"
+                              animate={{ scale: [1, 1.2, 1] }}
+                              transition={{ duration: 1, repeat: Infinity }}
+                            />
+                          )}
+                        </motion.button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+                
                 {/* CTA Button */}
                 <motion.div
                   className="ml-4 relative"
@@ -360,6 +478,35 @@ export default function Navbar() {
               transition={{ duration: 0.3 }}
             >
               <div className="glass rounded-2xl p-6">
+                {/* Mode Toggle for Mobile */}
+                <div className="mb-4 pb-4 border-b border-steel/20">
+                  <p className="text-xs text-steel uppercase tracking-wider mb-2">View Mode</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      onClick={() => handleModeChange(false)}
+                      className={`px-4 py-2 rounded-lg flex items-center justify-center gap-2 transition-all ${
+                        !isAgencyMode 
+                          ? "bg-gradient-to-r from-coral/20 to-purple/20 text-coral" 
+                          : "glass-subtle text-cream"
+                      }`}
+                    >
+                      <UserCircle className="w-4 h-4" />
+                      <span className="text-sm font-medium">Personal</span>
+                    </button>
+                    <button
+                      onClick={() => handleModeChange(true)}
+                      className={`px-4 py-2 rounded-lg flex items-center justify-center gap-2 transition-all ${
+                        isAgencyMode 
+                          ? "bg-gradient-to-r from-coral/20 to-purple/20 text-coral" 
+                          : "glass-subtle text-cream"
+                      }`}
+                    >
+                      <Building2 className="w-4 h-4" />
+                      <span className="text-sm font-medium">Agency</span>
+                    </button>
+                  </div>
+                </div>
+
                 <div className="space-y-2">
                   {navItems.map((item, index) => {
                     const Icon = item.icon;
