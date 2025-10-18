@@ -94,13 +94,13 @@ export default function ProjectsSection({ isAgencyMode = false }: ProjectsSectio
   const personalProjects: Project[] = [
     {
       id: "portfolio-v3",
-      title: "Portfolio V3",
+      title: "Mekiya Coffee",
       description: "Award-winning personal portfolio with advanced animations and interactions",
       category: "web",
-      tags: ["Next.js", "GSAP", "Three.js"],
-      image: "/projects/portfolio.jpg",
-      images: ["/projects/portfolio-1.jpg", "/projects/portfolio-2.jpg"],
-      year: "2024",
+      tags: ["Next.js", "GSAP", "Three.js", "Tailwind CSS", "Framer Motion"],
+      image: "/projects/coffee.png",
+      images: ["/projects/coffee.png", "/projects/coffee.png"],
+      year: "2025",
       duration: "3 weeks",
       role: "Full Stack Developer",
       technologies: ["Next.js 14", "TypeScript", "Tailwind CSS", "Framer Motion", "Three.js"],
@@ -110,7 +110,7 @@ export default function ProjectsSection({ isAgencyMode = false }: ProjectsSectio
         "Performance score 100/100",
         "SEO optimized"
       ],
-      liveUrl: "https://portfolio.example.com",
+      liveUrl: "https://mekiyacoffee.com",
       githubUrl: "https://github.com/example",
       stats: {
         views: "10K+",
